@@ -4,7 +4,7 @@ RSpec.describe 'Shelter new page', type: :feature do
   describe 'As a visitor' do
     before :each do
 
-      @shelter_1 = Shelter.create!(name: 'Denver Animal Shelter',
+    @shelter_1 = Shelter.create!(name: 'Denver Animal Shelter',
                                  address: '123 Colfax Ave',
                                  city: 'Denver',
                                  state: 'CO',
@@ -34,7 +34,7 @@ RSpec.describe 'Shelter new page', type: :feature do
       fill_in 'sex',              with: 'F'
       click_button 'Submit'
 
-      assert_equal "/shelters/#{@shelter_1.id}/pets", current_path
+
       expect(page).to have_content('You have successfully added this pet!')
 
       expect(page).to have_xpath("//img[@src='https://d17fnq9dkz9hgj.cloudfront.net/breed-uploads/2018/08/shiba-inu-detail.jpg']")
@@ -43,9 +43,11 @@ RSpec.describe 'Shelter new page', type: :feature do
       expect(page).to have_content(2)
       expect(page).to have_content('F')
       expect(page).to have_content ('Adoptable')
+
+      assert_equal "/shelters/#{@shelter_1.id}/pets", current_path
     end
 
-    it 'can see a flash message listing missing fields if new pet form is incomplete'  do
+    it 'can see a flash message listing missing fields if new pet form is incomplete' do
 
       visit "/shelters/#{@shelter_1.id}/pets"
 
@@ -60,7 +62,9 @@ RSpec.describe 'Shelter new page', type: :feature do
       click_button 'Submit'
 
       assert_equal "/shelters/#{@shelter_1.id}/pets/new", current_path
-      expect(page).to have_content('All fields are required! Please fill in the name of the pet.')
-    end 
+      expect(page).to have_content('You have not filled in all the necessary fields to create a pet.')
+      expect(page).to have_content("Name can't be blank")
+      save_and_open_page
+    end
   end
 end

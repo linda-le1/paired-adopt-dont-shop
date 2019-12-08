@@ -17,6 +17,10 @@ describe Pet, type: :model do
 
     it {should validate_presence_of :approximate_age}
     it {should validate_numericality_of(:approximate_age)}
+
+    yoda = Pet.new
+    yoda.valid?
+    it {should validate_presence_of(:name).with_message("can't be blank")}
   end
 
   describe 'relationships' do
