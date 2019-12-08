@@ -51,6 +51,7 @@ RSpec.describe 'Pets show page', type: :feature do
 
       expect(page).to have_xpath("//img[@src='#{@dog_1.image_url}']")
       expect(page).to have_content(@dog_1.name)
+      expect(page).to have_link("#{@dog_1.name}")
       expect(page).to have_content(@dog_1.description)
       expect(page).to have_content(@dog_1.approximate_age)
       expect(page).to have_content(@dog_1.sex)
