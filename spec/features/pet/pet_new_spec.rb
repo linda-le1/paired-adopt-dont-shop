@@ -35,6 +35,7 @@ RSpec.describe 'Shelter new page', type: :feature do
       click_button 'Submit'
 
       assert_equal "/shelters/#{@shelter_1.id}/pets", current_path
+      expect(page).to have_content('You have successfully added this pet!')
 
       expect(page).to have_xpath("//img[@src='https://d17fnq9dkz9hgj.cloudfront.net/breed-uploads/2018/08/shiba-inu-detail.jpg']")
       expect(page).to have_content('Kuma')
@@ -42,7 +43,24 @@ RSpec.describe 'Shelter new page', type: :feature do
       expect(page).to have_content(2)
       expect(page).to have_content('F')
       expect(page).to have_content ('Adoptable')
-
     end
+
+    it 'can see a flash message listing missing fields if new pet form is incomplete'  do
+
+      visit "/shelters/#{@shelter_1.id}/pets"
+
+      click_on('Add New Pet for Adoption')
+      assert_equal "/shelters/#{@shelter_1.id}/pets/new", current_path
+
+      fill_in 'image_url',        with: "https://d17fnq9dkz9hgj.cloudfront.net/breed-uploads/2018/08/shiba-inu-detail.jpg"
+      fill_in 'name',             with: ''
+      fill_in 'description',      with: 'Loving Shiba Inu Mix who enjoys chilling at home.'
+      fill_in 'approximate_age',  with: '8'
+      fill_in 'sex',              with: 'F'
+      click_button 'Submit'
+
+      assert_equal "/shelters/#{@shelter_1.id}/pets/new", current_path
+      expect(page).to have_content('All fields are required! Please fill in the name of the pet.')
+    end 
   end
 end
