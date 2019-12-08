@@ -1,12 +1,12 @@
 <h1> Add a New Pet for Adoption </h1>
  <div>
 <%= form_tag "/shelters/#{@shelter.id}/pets", class:'center-form' do %>
+
 <% if @pet.errors.any? %>
  <h2><%= pluralize(@pet.errors.count, "error") %> prohibited this pet from being saved:</h2>
       <ul>
     <% @pet.errors.full_messages.each do |msg| %>
     <li><%= msg %></li>
-    <% binding.pry %>
     <% end %>
   </ul>
 <% end %>

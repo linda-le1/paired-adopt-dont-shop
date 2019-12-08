@@ -61,10 +61,9 @@ RSpec.describe 'Shelter new page', type: :feature do
       fill_in 'sex',              with: 'F'
       click_button 'Submit'
 
-      assert_equal "/shelters/#{@shelter_1.id}/pets/new", current_path
       expect(page).to have_content('You have not filled in all the necessary fields to create a pet.')
       expect(page).to have_content("Name is required and must only contain letters.")
-      save_and_open_page
+
     end
   end
 end
