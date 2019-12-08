@@ -58,10 +58,5 @@ RSpec.describe 'as a user', type: :feature do
       expect(page).to have_content('Sweet terrier mix who would love a quieter home.')
 
     end
-
-    As a visitor
-When I am updating or creating a pet
-If I try to submit the form with incomplete information
-I see a flash message indicating which field(s) I am missing
   end
 end

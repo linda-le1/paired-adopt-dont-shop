@@ -26,7 +26,7 @@ class PetsController < ApplicationController
         flash[:notice] = "You have successfully added this pet!"
         redirect_to "/shelters/#{@shelter.id}/pets"
       else
-        flash[:alert] = "You have not filled in all the necessary fields to create a pet."
+        flash[:alert] = "You have not filled in all the necessary fields to create a pet"
         render 'new'
       end
   end
