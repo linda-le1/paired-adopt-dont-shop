@@ -85,7 +85,11 @@ RSpec.describe "As a visitor ", type: :feature do
       expect("#{@dog_1.is_adoptable}").to eql("true")
       expect(page).to have_content("Status: Adoption Pending")
       expect(page).to have_content("On hold for Becky Robran")
-      expect(page).to_not have_content("Linda Le")
+
+      visit "/pets/#{@dog_2.id}"
+
+      expect(page).to have_content("Status: Adoptable")
+      expect(page).to_not have_content("On hold for Becky Robran")
 
     end
 
